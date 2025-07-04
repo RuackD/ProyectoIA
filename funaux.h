@@ -17,4 +17,5 @@ vector<int> ejecucion(vector<Avion>& aviones, int n_aviones, int max_iter, int r
 
 void guardarSalida(const string& nombreArchivoSalida, const vector<int>& solucion);
 
+
 #endif

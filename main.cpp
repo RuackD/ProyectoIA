@@ -20,7 +20,7 @@ int main(int argc, char* argv[]){
     instances(nombreArchivo,aviones,n_aviones);
 
     clock_t start_10 = clock();
-    vector<int> sol_10 = ejecucion(aviones, n_aviones, 50, 10);
+    vector<int> sol_10 = ejecucion(aviones, n_aviones, 100,10);
     clock_t end_10 = clock();
     double tiempo_10 = double(end_10 - start_10) / CLOCKS_PER_SEC;
     double costo_10 = fun_eval(sol_10, aviones, n_aviones);
@@ -28,7 +28,7 @@ int main(int argc, char* argv[]){
     cout << "valor objetivo 10 repes = " << costo_10 << ", tiempo de ejecución = " << tiempo_10 << "s" << endl;
 
     clock_t start_50 = clock();
-    vector<int> sol_50 = ejecucion(aviones, n_aviones, 50, 50);
+    vector<int> sol_50 = ejecucion(aviones, n_aviones, 100, 50);
     clock_t end_50 = clock();
     double tiempo_50 = double(end_50 - start_50) / CLOCKS_PER_SEC;
     double costo_50 = fun_eval(sol_50, aviones, n_aviones);

@@ -73,26 +73,31 @@ bool factible(const vector<int>& solucion, const vector<Avion>& aviones, const i
         }
     }
 
-
     return true;
 }
 
 vector<int> sol_aleatoria(const vector<Avion>& aviones, const int n_aviones) {
     vector<int> solucion(n_aviones);
+    bool es_factible = false;
 
-    for (int i = 0; i < n_aviones; i++) {
-        int E = aviones[i].e_time;
-        int L = aviones[i].l_time;
-
-        solucion[i] = E + rand() % (L - E + 1);
-    }
-
-    while (!factible(solucion, aviones, n_aviones)) {
+    while (!es_factible) {
         for (int i = 0; i < n_aviones; i++) {
             int E = aviones[i].e_time;
             int L = aviones[i].l_time;
-            solucion[i] = E + rand() % (L - E + 1);
+            if(E == L) {
+                solucion[i] = E; // Si E y L son iguales, solo hay una opción
+                continue;
+            }
+            else if(E<L){
+                int random_value = E + rand() % (L - E + 1);
+                solucion[i] = random_value; // Genera un valor aleatorio entre E y L
+            }
+            else{
+                cerr << "Error: E_i no puede ser mayor que L_i para el avión " << i + 1 << endl;
+                return vector<int>(); // Retorna un vector vacío en caso de error
+            }
         }
+        es_factible = factible(solucion, aviones, n_aviones);
     }
     return solucion;
 }
