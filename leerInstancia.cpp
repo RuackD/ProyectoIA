@@ -41,7 +41,7 @@ void instances(const string &nombreArchivo, vector<Avion> &aviones, int& n_avion
     getline(archivo, linea);
 
 
-    while (getline(archivo, linea) and !linea.empty()) {
+    for(int j = 0; j < n_aviones; j++){
         c_avi++;
         Avion a_act;
         
@@ -49,16 +49,16 @@ void instances(const string &nombreArchivo, vector<Avion> &aviones, int& n_avion
 
         archivo>>a_act.a_time>>a_act.e_time>>a_act.t_time>>a_act.l_time>>a_act.e_pen>>a_act.l_pen;
 
+
         for(int i = 0; i < n_aviones; i++){    
             int separacion;       
             archivo>>separacion;
             a_act.s_times.push_back(separacion);
 
         }
-
+        cout<< endl;
         aviones.push_back(a_act);
-    }
-
+    };
     archivo.close();
 }
 

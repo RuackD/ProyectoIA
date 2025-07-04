@@ -72,6 +72,12 @@ vector<int> hillClimbing(const vector<Avion>& aviones,
         costo_actual = fun_eval(sol_actual, aviones, n_aviones);
         int iter = 0;
 
+        cout << "Solución encontrada: ";
+        for (int i = 0; i < n_aviones; i++) {
+            cout << sol_actual[i] << " ";        
+        }
+        cout << "\nCosto de la solución: actual: " << costo_actual << "\n" << endl;    
+
         while (iter < max_iter) {
             vector<vector<int>> vecinos;
             movimiento(sol_actual, vecinos, aviones, n_aviones);

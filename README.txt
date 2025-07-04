@@ -7,3 +7,7 @@ make compile
 Para borrar los archivos compilados:
 make clean 
 
+Cambios a implementar:
+Hacer el greedy para la primera solucion, en los resets ocupar aleatorias. 
+Hacer una listas auxiliar para guardar las pos de los aviones, sortear la solucion de menor a mayor
+para no tener que iterar con dos for y poder comprobar las separaciones mas rapidos 
