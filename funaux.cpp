@@ -1,4 +1,5 @@
 #include "leerInstancia.h"
+#include "hillClimbing.h"
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
@@ -78,7 +79,12 @@ vector<int> sol_aleatoria(const vector<Avion>& aviones, const int n_aviones) {
             solucion[i] = E + rand() % (L - E + 1);
         }
     }
-
     return solucion;
 }
+
+vector<int> ejecucion(vector<Avion>& aviones, int n_aviones, int max_iter, int restarts) {
+    vector<int> mejor_solucion = hillClimbing(aviones, n_aviones, max_iter, restarts);
+    return mejor_solucion;
+}
+
 

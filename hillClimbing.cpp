@@ -63,7 +63,7 @@ vector<int> hillClimbing(const vector<Avion>& aviones,
                          int restarts) {
     vector<vector<int>> soluciones_guardadas;
     vector<int> mejor_solucion;
-    double mejor_costo = max_iter;
+    double mejor_costo = 999999999; // Inicializa con un valor muy alto
     double costo_actual;
 
     for (int r = 0; r < restarts; r++) {
@@ -72,12 +72,11 @@ vector<int> hillClimbing(const vector<Avion>& aviones,
         costo_actual = fun_eval(sol_actual, aviones, n_aviones);
         int iter = 0;
 
-        cout << "Solución encontrada: ";
-        for (int i = 0; i < n_aviones; i++) {
-            cout << sol_actual[i] << " ";        
+        if (costo_actual < mejor_costo || mejor_solucion.empty()) {
+            mejor_solucion = sol_actual;
+            mejor_costo = costo_actual;
         }
-        cout << "\nCosto de la solución: actual: " << costo_actual << "\n" << endl;    
-
+   
         while (iter < max_iter) {
             vector<vector<int>> vecinos;
             movimiento(sol_actual, vecinos, aviones, n_aviones);
@@ -85,7 +84,6 @@ vector<int> hillClimbing(const vector<Avion>& aviones,
             vector<int> mejor_vecino = sol_actual;
             double mejor_vecino_costo = costo_actual;
             bool hay_mejora = false;
-
             for (const auto& vecino : vecinos) {
                 double costo_vecino = fun_eval(vecino, aviones, n_aviones);
                 if (costo_vecino < mejor_vecino_costo) {
@@ -95,7 +93,9 @@ vector<int> hillClimbing(const vector<Avion>& aviones,
                 }
             }
 
-            if (!hay_mejora) break;
+            if (!hay_mejora){ 
+                break;
+            };
 
             sol_actual = mejor_vecino;
             costo_actual = mejor_vecino_costo;
@@ -107,6 +107,5 @@ vector<int> hillClimbing(const vector<Avion>& aviones,
             mejor_costo = costo_actual;
         }
     }
-
     return mejor_solucion;
 }
