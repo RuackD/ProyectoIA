@@ -56,7 +56,6 @@ void instances(const string &nombreArchivo, vector<Avion> &aviones, int& n_avion
             a_act.s_times.push_back(separacion);
 
         }
-        cout<< endl;
         aviones.push_back(a_act);
     };
     archivo.close();
