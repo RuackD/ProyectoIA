@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 using namespace std;
 
 /**
@@ -46,19 +47,33 @@ double fun_eval(const vector<int>& solucion, const vector<Avion>& aviones, const
 }
 
 bool factible(const vector<int>& solucion, const vector<Avion>& aviones, const int n_aviones) {
-    for (int i = 0; i < n_aviones; i++) {
-        if (solucion[i] < aviones[i].e_time || solucion[i] > aviones[i].l_time) {
+
+    vector<int> indices(n_aviones);
+    for (int i = 0; i < n_aviones; ++i){
+        indices[i] = i;
+    }
+
+    sort(indices.begin(), indices.end(), [&solucion](int a, int b) {
+        return solucion[a] < solucion[b];
+    });
+
+    for (int i = 0; i < n_aviones; ++i) {
+        int tiempo_llegada = solucion[i];
+        if (tiempo_llegada < aviones[i].e_time || tiempo_llegada > aviones[i].l_time){
             return false;
         }
-
-        for (int j = 0; j < n_aviones; j++) {
-            if (solucion[i] < solucion[j] && solucion[j] < solucion[i] + aviones[i].s_times[j])
-                    return false;
-
-                if (solucion[j] < solucion[i] && solucion[i] < solucion[j] + aviones[j].s_times[i])
-                    return false;
+        for (int i = 0; i < n_aviones - 1; ++i){
+            int avion1 = indices[i];
+            int avion2 = indices[i + 1];
+            int tiempo1 = solucion[avion1];
+            int tiempo2 = solucion[avion2];
+            if (tiempo2 - tiempo1 < aviones[avion1].s_times[avion2]){
+                return false;
+            }
         }
     }
+
+
     return true;
 }
 
@@ -87,4 +102,16 @@ vector<int> ejecucion(vector<Avion>& aviones, int n_aviones, int max_iter, int r
     return mejor_solucion;
 }
 
+void guardarSalida(const string& nombreArchivoSalida, const vector<int>& solucion) {
+    ofstream salida(nombreArchivoSalida);
+    if (!salida.is_open()) {
+        cerr << "Error al abrir archivo de salida: " << nombreArchivoSalida << endl;
+        return;
+    }
 
+    for (size_t i = 0; i < solucion.size(); ++i) {
+        salida << "hora de aterrizaje avión n" << (i + 1) << ": " << solucion[i] << endl;
+    }
+
+    salida.close();
+}

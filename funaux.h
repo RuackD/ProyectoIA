@@ -15,4 +15,6 @@ vector<int> sol_aleatoria(const vector<Avion>& aviones, const int n_aviones);
 
 vector<int> ejecucion(vector<Avion>& aviones, int n_aviones, int max_iter, int restarts);
 
+void guardarSalida(const string& nombreArchivoSalida, const vector<int>& solucion);
+
 #endif

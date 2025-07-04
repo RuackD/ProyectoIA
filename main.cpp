@@ -18,25 +18,31 @@ int main(int argc, char* argv[]){
     vector<Avion> aviones;
     int n_aviones;   
     instances(nombreArchivo,aviones,n_aviones);
-    vector<int> sol_50_5 = ejecucion(aviones, n_aviones, 50, 5);
-    vector<int> sol_100_10 = ejecucion(aviones, n_aviones, 100, 10);
-    vector<int> sol_200_20 = ejecucion(aviones, n_aviones, 200, 20);
-    cout << "Solución con 50 iteraciones y 5 reinicios: ";
-    for (int i = 0; i < n_aviones; i++) {
-        cout << sol_50_5[i] << " "; 
-    }
-    cout << endl;
-    cout << "Costo de la solución con 50 iteraciones y 5 reinicios: " << fun_eval(sol_50_5, aviones, n_aviones) << endl;
-    cout << "Solución con 100 iteraciones y 10 reinicios: ";
-    for (int i = 0; i < n_aviones; i++) {
-        cout << sol_100_10[i] << " ";   
-    }
-    cout << endl;
-    cout<<"Costo de la solución con 100 iteraciones y 10 reinicios: " << fun_eval(sol_100_10, aviones, n_aviones) << endl;
-    cout << "Solución con 200 iteraciones y 20 reinicios: ";
-    for (int i = 0; i < n_aviones; i++) {
-        cout << sol_200_20[i] << " ";                   
-    }
-    cout << endl;
-    cout<<"Costo de la solución con 200 iteraciones y 20 reinicios: " << fun_eval(sol_200_20, aviones, n_aviones) << endl;
+
+    clock_t start_10 = clock();
+    vector<int> sol_10 = ejecucion(aviones, n_aviones, 50, 10);
+    clock_t end_10 = clock();
+    double tiempo_10 = double(end_10 - start_10) / CLOCKS_PER_SEC;
+    double costo_10 = fun_eval(sol_10, aviones, n_aviones);
+    guardarSalida("sol_10.txt", sol_10);
+    cout << "valor objetivo 10 repes = " << costo_10 << ", tiempo de ejecución = " << tiempo_10 << "s" << endl;
+
+    clock_t start_50 = clock();
+    vector<int> sol_50 = ejecucion(aviones, n_aviones, 50, 50);
+    clock_t end_50 = clock();
+    double tiempo_50 = double(end_50 - start_50) / CLOCKS_PER_SEC;
+    double costo_50 = fun_eval(sol_50, aviones, n_aviones);
+    guardarSalida("sol_50.txt", sol_50);
+    cout << "valor objetivo 50 repes = " << costo_50 << ", tiempo de ejecución = " << tiempo_50 << "s" << endl;
+    
+    clock_t start_100 = clock();
+    vector<int> sol_100 = ejecucion(aviones, n_aviones, 100, 100);
+    clock_t end_100 = clock();
+    double tiempo_100 = double(end_100 - start_100) / CLOCKS_PER_SEC;
+    double costo_100 = fun_eval(sol_100, aviones, n_aviones);
+    guardarSalida("sol_100.txt", sol_100);
+    cout << "valor objetivo 100 repes= " << costo_100 << ", tiempo de ejecución = " << tiempo_100 << "s" << endl;
+
+    cout << "Soluciones guardadas en archivos de salida." << endl;
+    return 0;
 }
